@@ -11,13 +11,19 @@ const TableOutput = (props) =>{
                 <Table.Cell colSpan='6'>{job.id}</Table.Cell>
             </Table.Row>
             {
-
-                    Object.keys(job.data).map(key =>(
-                        <Table.Cell>{key}</Table.Cell>
-                    ))
-                    
+              job.data.forEach(element => {
+                return(
+                  <Table.Row>
+                    {
+                      element.map(d =>{
+                      console.log(Object.keys(d)[0]);
+                      return(
+                        <Table.Cell>{Object.keys(d)[0]}</Table.Cell>
+                      )})
+                    }
+                  </Table.Row>
+                )})
             }
-
          </React.Fragment>
      )
  })
