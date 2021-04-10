@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+import axios from 'axios';
+import React, {useState, useEffect} from 'react'
+import { Container } from 'semantic-ui-react';
 import './App.css';
+import Header from './components/header';
+import Table from './components/tableOutput';
 
-function App() {
+const App = () => {
+  const [jobs, setJobs] = useState([])
+
+  useEffect(()=> {
+    axios.get('https://www.wix.com/_serverless/hiring-task-spreadsheet-evaluator/jobs')
+    .then(response =>{
+      setJobs(response.data.jobs)
+    })
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Container style={{marginTop:"2em"}}>
+        <Header />
+        <Table jobs={jobs}/>
+      </Container>
     </div>
   );
 }
