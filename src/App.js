@@ -25,7 +25,6 @@ const App = () => {
     <div className="App">
       <Container style={{marginTop:"2em"}}>
         <Header />
-        {/* <Table jobs={jobs}/> */}
         <Card.Group itemsPerRow={4}>
           {cards}
         </Card.Group>
