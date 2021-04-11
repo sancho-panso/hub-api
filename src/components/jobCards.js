@@ -14,8 +14,6 @@ const jobCard = (props) => {
                 {value[0].toString()}
               </Card.Meta>
               <Card.Description>
-                {/* {Object.entries(value[1])[0].toString()} */}
-                {/* {Object.entries(value[1]).toString()} */}
                 {checkForFormula(props,value)}
               </Card.Description>
             </React.Fragment>
@@ -43,23 +41,28 @@ const checkForFormula =(props,value)=>{
       //array of arguments objects:
         if(operator !== "reference"){//value argument
             Object.entries(element[1]).forEach(argument =>{
-                console.log(props.job.id);
-                console.log( argument);
                 if(argument[0] === "reference"){
-                  formulaString = formulaString.concat(", argument = " + argument.toString())
+                  formulaString = formulaString.concat(" argument = " + argument[1])
                 }else{
-                  formulaString = formulaString.concat(", argument = " + Object.entries(argument[1]).toString())
+                  let [arg] = Object.entries(argument[1])
+                  if(arg[0]=== "reference"){
+                    formulaString = formulaString.concat(" argument = " + arg[1])
+                  }else{
+                    let [notRef] = Object.entries(arg[1])
+                    formulaString = formulaString.concat(" argument = " + notRef[1])
+                  }
                 }
             })
         }else{
           // reference argument
-          formulaString = formulaString.concat(", argument = " + element[1])
+          formulaString = formulaString.concat(" argument = " + element[1])
         }
     });
 
     return formulaString;
-  } 
-  return Object.entries(value[1]).toString();
+  }
+  let [innerValue] = Object.entries(value[1])
+  return (typeof(innerValue[1]) + " " + innerValue[1].toString());
 }
 
 export default jobCard
